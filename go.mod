@@ -1,6 +1,6 @@
-module github.com/go-redsync/redsync/v4
+module github.com/TriggerMail/redsync/v4
 
-go 1.14
+go 1.18
 
 require (
 	github.com/go-redis/redis v6.15.9+incompatible
