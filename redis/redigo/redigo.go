@@ -55,7 +55,7 @@ func (c *conn) PTTL(name string) (time.Duration, error) {
 
 func (c *conn) Eval(script *redsyncredis.Script, keysAndArgs ...interface{}) (interface{}, error) {
 	v, err := c.delegate.Do("EVALSHA", args(script, script.Hash, keysAndArgs)...)
-	if e, ok := err.(redis.Error); ok && strings.HasPrefix(string(e), "NOSCRIPT ") {
+	if e, ok := err.(redis.Error); ok && strings.Contains(string(e), "NOSCRIPT ") {
 		v, err = c.delegate.Do("EVAL", args(script, script.Src, keysAndArgs)...)
 	}
 	return v, noErrNil(err)

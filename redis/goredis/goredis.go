@@ -63,7 +63,7 @@ func (c *conn) Eval(script *redsyncredis.Script, keysAndArgs ...interface{}) (in
 	}
 
 	v, err := c.delegate.EvalSha(script.Hash, keys, args...).Result()
-	if err != nil && strings.HasPrefix(err.Error(), "NOSCRIPT ") {
+	if err != nil && strings.Contains(err.Error(), "NOSCRIPT ") {
 		v, err = c.delegate.Eval(script.Src, keys, args...).Result()
 	}
 	return v, noErrNil(err)
